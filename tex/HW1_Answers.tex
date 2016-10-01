@@ -1,10 +1,10 @@
-\title{CS 613 - Machine Learning - Alex Lapinski}
+\title{CS 613 - Machine Learning}
 \author{
 	Assignment 1 - Dimensionality Reduction \&  Clustering\\
 	Alex Lapinski\\
 	Fall 2016
 }
-\date{today}
+\date{10/01/2016}
 \documentclass[12pt]{article}
 \usepackage[margin=0.7in]{geometry}
 \usepackage{graphicx}
@@ -39,6 +39,7 @@ $
 \end{center}
 	\begin{enumerate}
 	\item Find the principle components of the data (you must show the math, including how you compute the eivenvectors and eigenvalues).  Make sure you standardize the data first and that your principle components are normalized to be unit length (5pts).
+\newpage
 	\item Project the data onto the principal component corresponding to the largest eigenvalue found in the previous part (3pts).
 	\end{enumerate}
 
@@ -69,9 +70,13 @@ $
 \end{center}
 	\begin{enumerate}
 	\item Compute the information gain for each feature.  You could standardize the data overall, although it won't make a difference. (5pts).
+\newpage
 	\item Which feature is more discriminating based on results in part a (1pt)?
+\newpage
 	\item Using LDA, find the direction of projection (you must show the math).  Normalize this vector to be unit length.\\ \emph{Note: You don't not have to standardize the data since your computations should take into account the mean and standard deviations of the classes separately.}  (5pts).
+\newpage
 	\item Project the data onto the principal component found in the previous part (3pts).
+\newpage
 	\item Does the projection you performed in the previous part seem to provide good class separation?  Why or why not (1pt)?
 	\end{enumerate}
 \end{enumerate}
