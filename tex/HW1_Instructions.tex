@@ -1,0 +1,278 @@
+\title{CS 613 - Machine Learning}
+\author{
+        Assignment 1 - Dimensionality Reduction \&  Clustering\\
+       Fall 2016
+}
+\date{}
+\documentclass[12pt]{article}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{comment}
+\usepackage{amsmath}
+
+\begin{document}
+\maketitle
+
+
+\section*{Introduction}
+In this assignment you'll work on visualizing data, reducing its dimensionality and clustering it.\\
+
+\noindent
+You may not use any function from the Matlab ML library in your code.  Look at the \emph{Matlab Functions} section on Blackboard for a list of functions that are ok to use.\\
+
+\noindent
+In particular for this assignment you \textbf{MAY NOT} use Matlab functions like:
+\begin{itemize}
+\item pca
+\item k-nearest neighbors functions
+\item entropy
+\end{itemize}
+
+\noindent
+But you \textbf{MAY} use basic statistical functions like:
+\begin{itemize}
+\item std
+\item mean
+\item cov
+\item eig
+\end{itemize}
+
+\begin{center}
+\emph{As a reminder, make sure to clear out old variables prior to running your script}.
+\end{center}
+
+
+\section*{Grading}
+\begin{table}[h]
+\begin{centering}
+\begin{tabular}{|l|l|}
+\hline
+Part 1 (Theory) & 25pts \\
+Part 2 (PCA) & 30pts\\
+Part 3 (k-Means) & 30pts\\
+Report & 10pts\\
+\hline
+\textbf{TOTAL} & 95pts\\
+\hline
+Code doesn't generalize as requested & -5pts\\
+\hline
+\end{tabular}
+\caption{Grading Rubric}
+\end{centering}
+\end{table}
+
+\newpage
+\section*{DataSets}
+\paragraph{Pima Indians Diabetes Data Set} 
+In this dataset of 768 instances of testing Pima Indians for diabetes each row has the following information
+\begin{enumerate}
+\item Class Label (-1=negative,+1=positive)
+\item Number of times pregnant
+\item Plasma glucose concentration
+\item Diastolic blood pressure (mm Hg)
+\item Triceps skin fold thinkness (mm)
+\item Insulin (mu U/ml)
+\item Body mass index ($kg/m^2$)
+\item Diabetes pedigree function
+\item Age (yrs)
+\end{enumerate}
+Data obtained from:  https://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes
+
+\newpage
+\section{Theory Questions}
+\begin{enumerate}
+\item Why do we like to use quadratic error functions (say over a 4th degree polynomial function) (2pts)?
+
+\item Consider the following data:\\
+\begin{center}
+$
+ \begin{bmatrix}
+	-2 & 1\\
+	-5 & -4\\	
+	-3 & 1\\
+	0 & 3\\
+	-8 & 11\\
+	-2 & 5\\
+	1 & 0\\
+	5 & -1\\
+	-1 & -3\\
+	6 & 1\\
+\end{bmatrix}
+$
+\end{center}
+	\begin{enumerate}
+	\item Find the principle components of the data (you must show the math, including how you compute the eivenvectors and eigenvalues).  Make sure you standardize the data first and that your principle components are normalized to be unit length (5pts).
+	\item Project the data onto the principal component corresponding to the largest eigenvalue found in the previous part (3pts).
+	\end{enumerate}
+
+\item Consider the following data:\\
+\begin{center}
+Class 1 = 
+$
+ \begin{bmatrix}
+	-2 & 1\\
+	-5 & -4\\	
+	-3 & 1\\
+	0 & 3\\
+	-8 & 11\\
+	
+\end{bmatrix}
+$
+, Class 2 = 
+$
+ \begin{bmatrix}
+	-2 & 5\\
+	1 & 0\\
+	5 & -1\\
+	-1 & -3\\
+	6 & 1\\
+\end{bmatrix}
+$
+\end{center}
+	\begin{enumerate}
+	\item Compute the information gain for each feature.  You could standardize the data overall, although it won't make a difference. (5pts).
+	\item Which feature is more discriminating based on results in part a (1pt)?
+	\item Using LDA, find the direction of projection (you must show the math).  Normalize this vector to be unit length.\\ \emph{Note: You don't not have to standardize the data since your computations should take into account the mean and standard deviations of the classes separately.}  (5pts).
+	\item Project the data onto the principal component found in the previous part (3pts).
+	\item Does the projection you performed in the previous part seem to provide good class separation?  Why or why not (1pt)?
+	\end{enumerate}
+\end{enumerate}
+
+
+\newpage
+\section{Dimensionality Reduction via PCA}\label{pca}
+Download the dataset \emph{diabetes.csv} from Blackboard.  This dataset has eight features ($D=8$) and 768 samples ($N=78$).  The first column is the class label \{-1, 1\}.  \textbf{However} your script should be able to work on any dataset that lacks a header row and then has an arbitrary number of data observations, $N$, one per row, in the format:
+\begin{center}
+$(y_i, x_{i,1}, x_{i,2}, ..., x_{i,D})$
+\end{center}
+where $x_{i,j}$ are real valued numbers, $r_i\in\{-1, 1\}$, and $D$ is the number of features.\\
+
+\noindent
+\paragraph{Write a script that:}
+\begin{enumerate}
+  \item Reads in the data
+  \item Standardizes the data (except for the first column of course)
+  \item Reduces data (except for the first column of course) to 2D using PCA
+  \item Graphs the data for visualization
+      \begin{enumerate}
+        \item   Even though we're not using class labels to do the dimensionality reduction, plot the -1 data in blue and the +1 data in red
+      \end{enumerate}
+\end{enumerate}
+
+
+Your graph should end up looking similar to Figure \ref{PCA}.
+\begin{figure}[H]
+\begin{center}
+\includegraphics{Part1.png}
+\caption{2D PCA Projection of data}
+\label{PCA}
+\end{center}
+\end{figure}
+
+
+\newpage
+\section{Clustering}
+Next we're going to cluster this same data using k-means!\\
+
+
+\paragraph{Write a script that:}
+\begin{enumerate}
+\item Reads in the data
+\item Standardizes the data
+\item Performs k-means clustering \textbf{using just the 6th and 7th feature of the data with k=2}
+\end{enumerate}
+
+\noindent
+In addition, in your k-means code you'll want to visualize the progress of the algorithm (this will be part of your report):
+\begin{enumerate}
+\item Plot the initial setup
+    \begin{enumerate}
+    \item Data points are red 'x'
+    \item Cluster centers are blue 'o'
+    \end{enumerate}
+\item Plot the initial cluster assignments
+    \begin{enumerate}
+    \item Cluster 1 = red
+    \item Cluster 2 = blue
+    \item Data points are as 'x' (according the their assigned color)
+    \item Cluster centers are as 'o' (according the their assigned color)
+    \end{enumerate}
+\item Plot the final cluster assignments
+    \begin{enumerate}
+    \item	Cluster 1 = red
+    \item	Cluster 2 = blue
+    \item	Data points are as 'x' (according the their assigned color)
+    \item	Cluster centers are as 'o' (according the their assigned color)
+    \item	Title should indicate how many iterations it took to get there
+    \end{enumerate}
+\end{enumerate}
+
+
+Your figures should end up similar to Figures \ref{kMeans1}-\ref{kMeans3}.
+
+\noindent
+\paragraph{Implementation Details}
+\begin{enumerate}
+\item Seed the random number generator with zero (do this right before running your k-means).  You can use Matlab's \textbf{rng} function to do this.
+\item Randomly select two data instances and use them for the initial seeds (since we'll do $k=2$)
+\item Terminate the EM process when the sum of the L1 distance between the prior seeds and the new ones is less than $eps$ (which is a Matlab defined variable related to the possible precision).  \emph{If need be, refer to the Blackboard section on ``Similarity and Distance Functions" for the definition of the L1 distance.}
+\item Write your code in such a way that it could work for any value of positive integer $k$, and any number of features, $D$.  However you only have to plot the first two features and only have to plot $two$ clusters.
+\end{enumerate}
+
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics{Part4_Seeds.png}
+\caption{Seeds}
+\label{kMeans1}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics{Part4_FirstClustering.png}
+\caption{Initial Clustering}
+\label{kMeans2}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics{Part4_FinalClustering.png}
+\caption{Final Clustering after 33 iterations}
+\label{kMeans3}
+\end{center}
+\end{figure}
+
+
+\newpage
+\section*{Submission}
+For your submission, upload to Blackboard a single zip file containing:
+
+\begin{enumerate}
+\item PDF Writeup
+\item Source Code
+\item readme.txt file
+\end{enumerate}
+
+\noindent
+The readme.txt file should contain information on how to run your code to reproduce results for each part of the assignment.\\
+
+\noindent
+The PDF document should contain the following:
+\begin{enumerate}
+\item Part 1: Your answers to the theory questions.
+\item Part 2: The visualization of the PCA result
+\item Part 3: The visualization of the k-means clustering process including:
+    \begin{enumerate}
+    \item The initial setup visualization
+    \item The initial cluster assignment visualization
+    \item The final cluster assignment visualization
+    \end{enumerate}
+    and report how many iterations it took for your algorithm to terminate.
+\end{enumerate}
+
+\end{document}
+
