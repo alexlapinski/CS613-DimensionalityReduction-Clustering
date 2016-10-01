@@ -8,6 +8,6 @@ run: clean
 	python hw1.py
 
 clean:
-	rm -f graphs/*.png tex/*.aux tex/*.log tex/*.synctex.gz tex/*.pdf
+	rm -f graphs/**/*.png tex/*.aux tex/*.log tex/*.synctex.gz tex/*.pdf
 
 .PHONY: init test run clean
