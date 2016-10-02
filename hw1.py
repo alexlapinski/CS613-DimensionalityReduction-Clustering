@@ -1,20 +1,19 @@
+import matplotlib.pyplot as plt
 import pandas as pd
-import ggplot as gg
 import os
 
+plt.style.use("ggplot")
 
 def create_graph(dataframe, x_col_index, y_col_index, column_names):
     x_column = column_names[x_col_index]
     y_column = column_names[y_col_index]
     color_column = column_names[0]
-    return gg.ggplot(dataframe, gg.aes(x=x_column, y=y_column, color=color_column))
+    return dataframe.plot.scatter(x=x_column, y=y_column, c=color_column, colormap="RdBu")
 
 
-def save_graph(plt, title, filename):
-    plt = plt + gg.geom_point() + \
-          gg.scale_color_brewer(type="div", palette="RdBu") + \
-          gg.ggtitle(title)
-    plt.save(filename)
+def save_graph(plt, filename):
+    fig = plt.get_figure()
+    fig.savefig(filename)
 
 
 def clean_data(dataframe):
@@ -23,7 +22,7 @@ def clean_data(dataframe):
     # Standardize each column except for the first
     mean = dataframe[dataframe.columns[1:]].mean()
     std = dataframe[dataframe.columns[1:]].std()
-    
+
     # Only update all but first column
     result[dataframe.columns[1:]] = (result[dataframe.columns[1:]] - mean) / std
     return result
@@ -37,7 +36,8 @@ def plot_all_data(df, title, foldername, column_names):
             if x == y:
                 continue
             plt = create_graph(df, x, y, column_names)
-            save_graph(plt, title, "./graphs/"+foldername+"/graph{0}.png".format(graph_num))
+            plt.set_title(title)
+            save_graph(plt, "./graphs/"+foldername+"/graph{0}.png".format(graph_num))
             graph_num += 1
 
 
@@ -62,6 +62,8 @@ if __name__ == "__main__":
 
     # Plot all the Raw data in pairs of features
     plot_all_data(df, "Raw Data", "raw", column_names)
+
+    # Plot a scatter matrix
 
     clean_df = clean_data(df)
 
