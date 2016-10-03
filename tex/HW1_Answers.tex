@@ -11,7 +11,7 @@
 \usepackage{float}
 \usepackage{comment}
 \usepackage{amsmath}
-\graphicspath{ {../graphs/} }
+\graphicspath{ {../graphs/raw/}{../graphics/clean/} }
 
 \begin{document}
 \maketitle
@@ -20,13 +20,9 @@
 \item Why do we like to use quadratic error functions (say over a 4th degree polynomial function) (2pts)?
 
 \noindent
-The primary reason for using a quadradic error function is that is more easily tunable. 
 
-\begin{equation}
-y = ax^2 + bx + c
-\end{equation}
+The primary reason for using a quadratic error function is that there can only be one maximum or minum. 
 
-In the equation above we are able to tune the $a$ parameter, the $b$ parameter and the $c$ parameter to vary the placement and the shape of the quadratic plot. This allows us to easily define the location and shape of the plot.
 
 
 \newpage
@@ -48,14 +44,62 @@ $
 $
 \end{center}
 	\begin{enumerate}
-	\item Find the principle components of the data (you must show the math, including how you compute the eivenvectors and eigenvalues).  Make sure you standardize the data first and that your principle components are normalized to be unit length (5pts).
+	\item Find the principle components of the data (you must show the math, including how you compute the eigenvectors and eigenvalues).  Make sure you standardize the data first and that your principle components are normalized to be unit length (5pts).
 
 \hfill \break
 \hfill \break
 
-$Mean = \begin{bmatrix} -0.9 & 1.4\\ \end{bmatrix}$\newline
-$Standard Deviation = \begin{bmatrix}  4.228212 & 4.273952\\ \end{bmatrix}$\newline
-$Standardized Data = (Data - Mean) / Standard Deviation = 
+$Mean_{col1} = \mu_1 = (-2 + -5 + -3 + 0 + -8 + -2 + 1 + 5 + -1 + 6)/10 = -0.9$\newline
+$Mean_{col2} = \mu_2 = (1 + -4 + 1 + 3 + 11 + 5 + 0 + -1 + -3 + 1)/10 = 1.4$\newline
+$Mean = \mu = [-0.9 & 1.4]$\newline
+$Standard Deviation_{col1} = \sigma_1 = 4.22821213$\newline
+$Standard Deviation_{col2} = \sigma_2 = 4.27395211$\newline
+$Standard Deviation = \sigma = \begin{matrix} 4.22821213 & 4.27395211\\ \end{matrix}$\newline
+$Standardized Data = (Data - \mu) / \sigma$\newline
+\hfill \break
+$
+\begin{matrix}
+	-2 - -0.9 & 1 - 1.4\\
+	-5 - -0.9 & -4 - 1.4\\	
+	-3 - -0.9& 1 - 1.4\\
+	0 - -0.9 & 3 - 1.4\\
+	-8 - -0.9 & 11 - 1.4\\
+	-2 - -0.9 & 5 - 1.4\\
+	1 - -0.9 & 0 - 1.4\\
+	5 - -0.9 & -1 - 1.4\\
+	-1 - -0.9 & -3 - 1.4\\
+	6 - -0.9 & 1 - 1.4\\
+	
+\end{matrix}
+=
+\begin{bmatrix}
+	-1.1 & -0.4\\
+	-4.1 & -5.4\\	
+	-2.1 & -0.4\\
+	 0.9 &  1.6\\
+	-7.1 &  9.6\\
+	-1.1 &  3.6\\
+	 1.9 & -1.4\\
+	 5.9 & -2.4\\
+	-0.1 & -4.4\\
+	 6.9 & -0.4\\
+	
+\end{bmatrix}
+=
+\begin{bmatrix}
+	-1.1/4.22821213 & -0.4/4.27395211\\
+	-4.1/4.22821213 & -5.4/4.27395211\\	
+	-2.1/4.22821213 & -0.4/4.27395211\\
+	 0.9/4.22821213 &  1.6/4.27395211\\
+	-7.1/4.22821213 &  9.6/4.27395211\\
+	-1.1/4.22821213 &  3.6/4.27395211\\
+	 1.9/4.22821213 & -1.4/4.27395211\\
+	 5.9/4.22821213 & -2.4/4.27395211\\
+	-0.1/4.22821213 & -4.4/4.27395211\\
+	 6.9/4.22821213 & -0.4/4.27395211\\
+	
+\end{bmatrix}
+=
 \begin{bmatrix}
 -0.260157 & -0.093590\\
 -0.969677 & -1.263468\\
@@ -69,7 +113,6 @@ $Standardized Data = (Data - Mean) / Standard Deviation =
  1.631895 & -0.093590\\
 \end{bmatrix}
 $
-
 
 \newpage
 	\item Project the data onto the principal component corresponding to the largest eigenvalue found in the previous part (3pts).
@@ -124,13 +167,13 @@ TODO: Insert graph of initial cluster assignment visualization
 \subsection*{Final Cluster Assignment}
 TODO: Insert graph of final cluster assignment visualization
 \subsection*{Results}
-TODO: REport how many iterations it took for the algorithm to terminate
+TODO: Report how many iterations it took for the algorithm to terminate
 
 \newpage
 \section*{Raw Graphs}
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.66]{raw1.png}
+\includegraphics[scale=0.66]{graph1.png}
 \caption{Raw Data 1}
 \label{Raw Data 1}
 \end{center}
@@ -138,7 +181,7 @@ TODO: REport how many iterations it took for the algorithm to terminate
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.66]{raw2.png}
+\includegraphics[scale=0.66]{graph2.png}
 \caption{Raw Data 2}
 \label{Raw Data 2}
 \end{center}
@@ -146,7 +189,7 @@ TODO: REport how many iterations it took for the algorithm to terminate
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.66]{raw3.png}
+\includegraphics[scale=0.66]{graph3.png}
 \caption{Raw Data 3}
 \label{Raw Data 3}
 \end{center}
