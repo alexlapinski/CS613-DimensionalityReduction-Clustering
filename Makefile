@@ -5,7 +5,7 @@ test:
 	nosetests tests --all-modules -v
 
 run: clean
-	python hw1.py
+	python src/hw1.py -r -s --data ./diabetes.csv
 
 clean:
 	rm -f graphs/**/*.png tex/*.aux tex/*.log tex/*.synctex.gz tex/*.pdf
