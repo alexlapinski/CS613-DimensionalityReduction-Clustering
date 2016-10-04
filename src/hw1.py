@@ -15,8 +15,8 @@ if __name__ == "__main__":
                         help="Set the matplotlib render style (default: ggplot)")
     parser.add_argument("--data", action="store", dest="data_filepath", default="./diabetes.csv",
                         help="Set the filepath of the data csv file. (default: ./diabetes.csv)")
-    parser.add_argument("--out", action="store", dest="output_folderpath", default="graph",
-                        help="Set the output path of the folder to save graphs (default: graph)")
+    parser.add_argument("--out", action="store", dest="output_folderpath", default="graphs",
+                        help="Set the output path of the folder to save graphs (default: graphs)")
 
     args = parser.parse_args()
 
