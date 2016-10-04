@@ -14,7 +14,7 @@ def perform_pca(dataframe, num_dimensions):
     std_df = data.clean_data(dataframe)
 
     # Compute the covariance matrix
-    cov_matrix = std_df[std_df.columns[1:]].cov()
+    cov_matrix = std_df.cov()
 
     # Compute Eigenvectors + Eigenvalues of Covariance Matrix
     evalues, evectors = np.linalg.eig(cov_matrix)
@@ -33,10 +33,12 @@ def perform_pca(dataframe, num_dimensions):
     projection_matrix = evectors[:, selected_indicies]
 
     # Project original dataframe using projection matrix
-    new_data = np.dot(dataframe[dataframe.columns[1:]], projection_matrix)
+    new_data = np.dot(dataframe, projection_matrix)
 
     # Preserve the labels
-    labels = dataframe[dataframe.columns[0]]
+    labels = dataframe.index
 
     # Return new dataframe
-    return pd.DataFrame(new_data, index=labels)
+    projected_df = pd.DataFrame(new_data, index=labels)
+    projected_df.columns = ["Feature #{0}".format(i) for i in projected_df.columns]
+    return projected_df

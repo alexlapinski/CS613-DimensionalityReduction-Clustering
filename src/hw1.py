@@ -3,7 +3,7 @@ import argparse
 import data
 import pca
 import plotting
-from os import path
+import os
 
 
 if __name__ == "__main__":
@@ -16,6 +16,9 @@ if __name__ == "__main__":
                         help="Perform the PCA analysis and save related graphs")
     parser.add_argument("-l", "--lda", action="store_true", dest="perform_lda",
                         help="Perform the LDA analysis and save related graphs")
+    parser.add_argument("-n", "--num-dimensions", action="store", dest="num_dimensions", default=2, type=int,
+                        help="Set the number of dimensions in the projected space (default: 2)")
+
 
     parser.add_argument("--style", action="store", dest="style", default="ggplot",
                         help="Set the matplotlib render style (default: ggplot)")
@@ -36,23 +39,21 @@ if __name__ == "__main__":
     df = data.read_data(args.data_filepath)
 
     if(args.plot_raw_data):
-        plotting.plot_all_data(df, "Raw Data", path.join(args.output_folderpath, "raw"), data.column_names)
+        plotting.plot_all_data(df, "Raw Data", os.path.join(args.output_folderpath, "raw"), data.column_names)
 
     if(args.plot_standardized_data):
         clean_df = data.clean_data(df)
-        plotting.plot_all_data(clean_df, "Standardized Data", path.join(args.output_folderpath, "clean"), data.column_names)
+        plotting.plot_all_data(clean_df, "Standardized Data", os.path.join(args.output_folderpath, "clean"), data.column_names)
 
     if(args.perform_pca):
-        num_dimensions = 2
+        num_dimensions = args.num_dimensions
         projected_df = pca.perform_pca(df, num_dimensions)
 
-        x_col_name = projected_df.columns[1]
-        y_col_name = projected_df.columns[2]
-        label_col_name = projected_df.columns[0]
+        output_path = os.path.join(args.output_folderpath, "PCA")
+        if(not(os.path.exists(output_path))):
+            os.makedirs(output_path)
 
-        plt = plotting.create_graph(projected_df, x_col_name, y_col_name, label_col_name)
-        plt.set_title("PCA 2-D")
-        plotting.save_graph(plt, path.join("2d-pca.png"))
+        plotting.plot_all_data(projected_df, "PCA {0}-D".format(num_dimensions), output_path, projected_df.columns)
 
 
     if(args.perform_lda):
