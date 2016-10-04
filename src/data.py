@@ -1,7 +1,6 @@
 import pandas as pd
 
 column_names = [
-        "Class Label",
         "Number of times pregnant",
         "Plasma glucose concentration",
         "Diastolic blood pressure (mm Hg)",
@@ -16,7 +15,7 @@ def read_data(filepath):
     """"
     Read the diabetes csv and return a dataframe
     """
-    return pd.read_csv(filepath, names=column_names)
+    return pd.read_csv(filepath, names=column_names, index_col=0)
 
 
 def clean_data(dataframe):
@@ -28,9 +27,9 @@ def clean_data(dataframe):
     result = dataframe.copy()
 
     # Standardize each column except for the first
-    mean = dataframe[dataframe.columns[1:]].mean()
-    std = dataframe[dataframe.columns[1:]].std()
+    mean = dataframe.mean()
+    std = dataframe.std()
 
     # Only update all but first column
-    result[dataframe.columns[1:]] = (result[dataframe.columns[1:]] - mean) / std
+    result = (result - mean) / std
     return result

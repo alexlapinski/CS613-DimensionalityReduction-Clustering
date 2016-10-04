@@ -1,16 +1,20 @@
 import os
 
 
-def create_graph(dataframe, x_col_name, y_col_name, label_col_name):
+def create_graph(dataframe, x_col_name, y_col_name):
     """
     Create a scatter plot graph and return it
+
+    Since, for the diabetes dataset, we know we have just 2 labels, we can show them each here
+
     :param dataframe: Dataframe containing data to plot
     :param x_col_name: Name of the column to plot on the x axis
     :param y_col_name: Name of the column to plot on the y axis
     :param label_col_name: Name of the column which contains the label information
     :return:
     """
-    return dataframe.plot.scatter(x=x_col_name, y=y_col_name, c=label_col_name, colormap="RdBu")
+    plt = dataframe.loc[-1].plot.scatter(x=x_col_name, y=y_col_name, color="Red", label="-1")
+    return dataframe.loc[1].plot.scatter(x=x_col_name, y=y_col_name, color="Blue", label="1", ax=plt)
 
 
 def save_graph(plt, filepath):
@@ -37,16 +41,14 @@ def plot_all_data(dataframe, title, folder_path, column_names):
     if not (os.path.exists(folder_path)):
         os.makedirs(folder_path)
 
-    label_col_name = column_names[0]
-
-    for x in range(1, len(column_names) - 1):
-        for y in range(1, len(column_names)):
+    for x in range(0, len(column_names)):
+        for y in range(0, len(column_names)):
             if x == y:
                 continue
 
             x_col_name = column_names[x]
             y_col_name = column_names[y]
-            plt = create_graph(dataframe, x_col_name, y_col_name, label_col_name)
+            plt = create_graph(dataframe, x_col_name, y_col_name)
             plt.set_title(title)
 
             filename = "graph{0}.png".format(graph_num)
