@@ -13,6 +13,9 @@ def create_graph(dataframe, x_col_name, y_col_name):
     :param label_col_name: Name of the column which contains the label information
     :return:
     """
+
+    # TODO: Allow passed in dictionary of color to labels
+
     plt = dataframe.loc[-1].plot.scatter(x=x_col_name, y=y_col_name, color="Red", label="-1")
     return dataframe.loc[1].plot.scatter(x=x_col_name, y=y_col_name, color="Blue", label="1", ax=plt)
 
