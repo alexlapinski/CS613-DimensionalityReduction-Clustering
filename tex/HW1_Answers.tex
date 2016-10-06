@@ -11,7 +11,7 @@
 \usepackage{float}
 \usepackage{comment}
 \usepackage{amsmath}
-\graphicspath{ {../graphs/pca/} }
+\graphicspath{ {../graphs/pca/}{../graphs/kmeans/} }
 
 \begin{document}
 \maketitle
@@ -377,7 +377,6 @@ $
 \begin{center}
 \includegraphics[scale=0.64]{PCA-graph1.png}
 \caption{PCA 2D Feature 0 by Feature 1}
-\label{PCA-2D-0x1}	
 \end{center}
 \end{figure}
 
@@ -385,7 +384,6 @@ $
 \begin{center}
 \includegraphics[scale=0.64]{PCA-graph2.png}
 \caption{PCA 2D Feature 1 by Feature 0}
-\label{PCA-2D-1x0}	
 \end{center}
 \end{figure}
 
@@ -394,9 +392,19 @@ $
 
 \section*{Part 3 - Visualization of k-means}
 \subsection*{Initial Setup}
-TODO: Insert Graph of initial setup visualization
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.85]{InitialConfiguration.png}
+\caption{K-Means Initial Configuration}
+\end{center}
+\end{figure}
 \subsection*{Initial Cluster Assignment}
-TODO: Insert graph of initial cluster assignment visualization
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.85]{InitialAssignment.png}
+\caption{K-Means Initial Assignment}
+\end{center}
+\end{figure}
 \subsection*{Final Cluster Assignment}
 TODO: Insert graph of final cluster assignment visualization
 \subsection*{Results}
