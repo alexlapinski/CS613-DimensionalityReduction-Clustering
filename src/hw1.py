@@ -14,8 +14,8 @@ if __name__ == "__main__":
                         help="Plot and save graphs of the standardized data")
     parser.add_argument("-p", "--pca", action="store_true", dest="perform_pca",
                         help="Perform the PCA analysis and save related graphs")
-    parser.add_argument("-l", "--lda", action="store_true", dest="perform_lda",
-                        help="Perform the LDA analysis and save related graphs")
+    parser.add_argument("-c", "--cluster", action="store_true", dest="perform_clustering",
+                        help="Perform the Clustering analysis and save related graphs")
     parser.add_argument("-n", "--num-dimensions", action="store", dest="num_dimensions", default=2, type=int,
                         help="Set the number of dimensions in the projected space (default: 2)")
 
@@ -56,6 +56,6 @@ if __name__ == "__main__":
         plotting.plot_all_data(projected_df, "PCA {0}-D".format(num_dimensions), output_path, projected_df.columns)
 
 
-    if(args.perform_lda):
-        print "Doing some LDA stuff"
-        print "Saving LDA graphs"
+    if(args.perform_clustering):
+        print "Doing some Clustering stuff"
+        print "Saving Clustering graphs"
