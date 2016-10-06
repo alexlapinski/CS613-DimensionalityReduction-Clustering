@@ -33,7 +33,7 @@ def perform_pca(dataframe, num_dimensions):
     projection_matrix = evectors[:, selected_indicies]
 
     # Project original dataframe using projection matrix
-    new_data = np.dot(dataframe, projection_matrix)
+    new_data = np.dot(std_df, projection_matrix)
 
     # Preserve the labels
     labels = dataframe.index

@@ -31,7 +31,7 @@ def save_graph(plt, filepath):
     fig.savefig(filepath)
 
 
-def plot_all_data(dataframe, title, folder_path, column_names):
+def plot_all_data(dataframe, title, name_prefix, folder_path, column_names):
     """
     Save all of the 2-pair possible combinations within the given dataframe to the specified folder
     :param dataframe: Dataframe containing data to plot, first column is the label, subsequent are features
@@ -54,7 +54,7 @@ def plot_all_data(dataframe, title, folder_path, column_names):
             plt = create_graph(dataframe, x_col_name, y_col_name)
             plt.set_title(title)
 
-            filename = "graph{0}.png".format(graph_num)
+            filename = "{0}-graph{1}.png".format(name_prefix, graph_num)
             filepath = os.path.join(folder_path, filename)
             save_graph(plt, filepath)
             graph_num += 1

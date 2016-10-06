@@ -39,11 +39,11 @@ if __name__ == "__main__":
     df = data.read_data(args.data_filepath)
 
     if(args.plot_raw_data):
-        plotting.plot_all_data(df, "Raw Data", os.path.join(args.output_folderpath, "raw"), data.column_names)
+        plotting.plot_all_data(df, "Raw Data", "Raw", os.path.join(args.output_folderpath, "raw"), data.column_names)
 
     if(args.plot_standardized_data):
         clean_df = data.clean_data(df)
-        plotting.plot_all_data(clean_df, "Standardized Data", os.path.join(args.output_folderpath, "clean"), data.column_names)
+        plotting.plot_all_data(clean_df, "Standardized Data", "Clean", os.path.join(args.output_folderpath, "clean"), data.column_names)
 
     if(args.perform_pca):
         num_dimensions = args.num_dimensions
@@ -53,7 +53,7 @@ if __name__ == "__main__":
         if(not(os.path.exists(output_path))):
             os.makedirs(output_path)
 
-        plotting.plot_all_data(projected_df, "PCA {0}-D".format(num_dimensions), output_path, projected_df.columns)
+        plotting.plot_all_data(projected_df, "PCA {0}-D".format(num_dimensions), "PCA", output_path, projected_df.columns)
 
 
     if(args.perform_clustering):
