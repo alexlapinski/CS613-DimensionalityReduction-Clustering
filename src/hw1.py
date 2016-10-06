@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import argparse
 import data
 import pca
+import clustering
 import plotting
 import os
 
@@ -30,7 +31,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if(not(args.plot_raw_data) and not(args.plot_standardized_data) and
-           not(args.perform_pca) and not(args.perform_lda)):
+           not(args.perform_pca) and not(args.perform_clustering)):
         parser.print_help()
 
 
@@ -57,5 +58,7 @@ if __name__ == "__main__":
 
 
     if(args.perform_clustering):
-        print "Doing some Clustering stuff"
-        print "Saving Clustering graphs"
+        output_path = os.path.join(args.output_folderpath, "KMeans")
+        if (not (os.path.exists(output_path))):
+            os.makedirs(output_path)
+        clustering.kmeans(df, 6, 7, 2, output_path, df.columns[6:8])
