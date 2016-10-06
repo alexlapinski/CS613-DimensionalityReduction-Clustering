@@ -52,44 +52,78 @@ $
 $Mean_{col1} = \mu_1 = (-2 + -5 + -3 + 0 + -8 + -2 + 1 + 5 + -1 + 6)/10 = -0.9$\newline
 $Mean_{col2} = \mu_2 = (1 + -4 + 1 + 3 + 11 + 5 + 0 + -1 + -3 + 1)/10 = 1.4$\newline
 $Mean = \mu = \begin{bmatrix}-0.9 & 1.4\\ \end{bmatrix}$\newline
-$Standard Deviation_{col1} = \sigma_1 = 4.22821213$\newline
-$Standard Deviation_{col2} = \sigma_2 = 4.27395211$\newline
-$Standard Deviation = \sigma = \begin{bmatrix} 4.22821213 & 4.27395211\\ \end{bmatrix}$\newline
-\hfill \break
-$Standardized Data = (Data - \mu) / \sigma =
-\begin{bmatrix}
--0.260157 & -0.093590\\
--0.969677 & -1.263468\\
--0.496664 & -0.093590\\
- 0.212856 & 0.374361\\
--1.679197 & 2.246165\\
--0.260157 & 0.842312\\
- 0.449363 & -0.327566\\
- 1.395389 & -0.561541\\
--0.023651 & -1.029492\\
- 1.631895 & -0.093590\\
-\end{bmatrix} 
 $
-
-TODO: Compute Covariance Matrix
-$
-\Sigma = \newline
-\small
-\begin{bmatrix}
-0.0148723 & -0.02446792 & 0.03356939 &  0.01345069 & 0.32691793 & 0.0918175 & -0.06470532 & -0.16298003 & -0.08377002 & -0.14370452\\
--0.02446792 & 0.04315646 & -0.05920962 & -0.0237243 & -0.57661715 & -0.16194751 & 0.1141271 & 0.28746383 &  0.14775339 & 0.25346573\\
-0.03356939 & -0.05920962 & 0.08123418 & 0.03254917 & 0.79110483 & 0.22218809 & -0.15657963 & -0.39439344 & -0.20271408 & -0.34774888\\
-0.01345069 & -0.0237243 & 0.03254917 & 0.01304191 & 0.31698244 & 0.08902704 & -0.06273883 & -0.15802684 & -0.08122413 & -0.13933714\\
-0.32691793 & -0.57661715 & 0.79110483 & 0.31698244 &  7.70423086 & 2.16379454 & -1.52486192 & -3.84082867 & -1.97414559 & -3.38657727\\
-0.0918175 & -0.16194751 & 0.22218809 & 0.08902704 & 2.16379454 & 0.60771892 & -0.42826961 & -1.0787273 & -0.5544545 & -0.95114717\\
--0.06470532 & 0.1141271 & -0.15657963 & -0.06273883 & -1.52486192 & -0.42826961 &  0.3018087 & 0.76019703 & 0.39073329 & 0.6702892\\
--0.16298003 & 0.28746383 & -0.39439344 & -0.15802684 & -3.84082867 & -1.0787273 & 0.76019703 & 1.91478749 & 0.98418066 & 1.68832727\\
--0.08377002 & 0.14775339 & -0.20271408 & -0.08122413 & -1.97414559 & -0.5544545 & 0.39073329 & 0.98418066 & 0.50585852 & 0.86778248\\
--0.14370452 & 0.25346573 & -0.34774888 & -0.13933714 & -3.38657727 & -0.95114717 & 0.6702892 & 1.68832727 & 0.86778248 & 1.4886503\\
+CenteredData = RawData - \begin{bmatrix} -0.9 & 1.4 \end{bmatrix}
+CenteredData = \begin{bmatrix}
+	-1.1 & -0.4 \\
+	-4.1 & -5.4 \\
+	-2.1 & -0.4 \\
+	-0.9 &  1.6 \\
+	-7.1 &  9.6 \\
+	-1.1 &  3.6 \\
+	 1.9 & -1.4 \\
+	 5.9 & -2.4 \\
+	-0.1 & -4.4 \\
+	 6.9 & -0.4 
 \end{bmatrix}
+$\newline
+$\sigma_1 = \sqrt{(-1.1^2 + -4.1^2 + -2.1^2 + -0.9^2 + -7.1^2 + -1.1^2 + 1.9^2 + 5.9^2 + -0.1^2 + 6.9^2)/(10-1)}$\newline
+$\sigma_1 = \sqrt{160.9 / 9} = \sqrt{17.88} = 4.23$\newline
+$\sigma_2 = \sqrt{(-0.4^2+-5.4^2+-0.4^2+1.6^2+9.6^2+3.6^2+-1.4^2+-2.4^2+-4.4^2+-0.4^2)/(10-1)}$\newline
+$\sigma_2 = \sqrt{164.4/9} = \sqrt{18.27} = 4.27$\newline
+$Standard Deviation = \sigma = \begin{bmatrix} 4.23 & 4.27 \end{bmatrix}$\newline
+\hfill \break
+$Standardized Data = CenteredData / \sigma =
+\begin{bmatrix}
+-0.26 & -0.09\\
+-0.97 & -1.26\\
+-0.50 & -0.09\\
+ 0.21 &  0.37\\
+-1.68 &  2.25\\
+-0.26 &  0.84\\
+ 0.45 & -0.33\\
+ 1.39 & -0.56\\
+-0.02 & -1.03\\
+ 1.63 & -0.09\\
+\end{bmatrix} 
+$\newline
+\hfill \break
+Now that the data has been standardized by centering it and dividing it by the standard deviation for each column, we can compute the covariance matrix $\Sigma$.\\
+$cov = \Sigma = E[(X_i - \mu_i)(X_j - \mu_j)]\\
+\mu_1 = (-0.26 + -0.97 + -0.5 + 0.21 + -1.68 + -0.26 + 0.45 + 1.39 + -0.02 + 1.63)/10 \\
+\mu_1 = -0.01 / 10 = -0.001\\
+\mu_2 = (-0.09 + -1.26 + -0.09 + 0.37 + 2.25 + 0.84 + -0.33 + -0.36  + -1.03 + -0.09)/10 \\
+\mu_2 = 0.01 / 10 = 0.001\\$\\
 $
-\normalsize
-
+\Sigma = cov = \begin{bmatrix} cov_{11} & cov_{12} \\ cov_{21} & cov_{22} \end{bmatrix} \\
+cov_{11} = ((-0.26+0.001)^2 + (-0.97 + 0.001)^2 + (-0.5 +0.001)^2 + (0.21 +0.001)^2+ (-1.68 +0.001)^2
++ ( -0.26+0.001)^2 + (0.45 +0.001)^2 + (1.39 +0.001)^2+ (-0.02 +0.001)^2+ (1.63 +0.001)^2)/N-1 \\
+cov_{11} = (-0.0671 + 0.939 + 0.249 + 0.0445 + 2.819 + 0.0671 + 0.2034 + 1.9349 + 0.004 + 2.6602)/10-1 \\
+cov_{11} = (8.946/9) = 0.9983\\
+\hfill \break
+cov_{12} = cov_{21} = ((-0.26 + 0.001)(-0.09 - 0.001) + (-0.97 + 0.001)(-1.26 - 0.001) + 
+					   (-0.5  + 0.001)(-0.09 - 0.001) + ( 0.21 + 0.001)( 0.37 - 0.001) +
+   					   (-1.68 + 0.001)( 2.25 - 0.001) + (-0.26 + 0.001)( 0.84 - 0.001) +
+					   ( 0.45 + 0.001)(-0.33 - 0.001) + ( 1.39 + 0.001)(-0.36 - 0.001) +
+					   (-0.02 + 0.001)(-1.03 - 0.001) + ( 1.63 + 0.001)(-0.09 - 0.001))/N-1\\
+\hfill \break
+cov_{12} = cov_{21} = (0.0236 + 1.2219 + 0.0454 + 0.0779 + -3.776 + -0.217 + -0.149 + -0.780 + 0.02 + -0.148)/10-1 \\
+cov_{12} = cov_{21} = (-3.681 / 9) = -0.409\\
+\hfill \break
+cov_{22} = ((-0.09 - 0.001)^2 + (-1.26 - 0.001)^2+ (-0.09 - 0.001)^2+ (0.37 - 0.001)^2+ (2.25 - 0.001)^2+ (0.84 - 0.001)^2+ (-0.33 - 0.001)^2+ (-0.36 - 0.001)^2+ (-1.03 - 0.001)^2+ (-0.09 - 0.001)^2)/N-1
+cov_{22} = (0.01 + 1.59 + 0.14 + 5.06 + 0.7 + 0.11 + 0.31 + 1.06 + 0.01)/10 - 1 \\
+cov_{22} = (9.0 / 9) = 1.0 \\
+\hfill \break
+\Sigma = \begin{bmatrix}
+	cov_{11} & cov_{12} \\
+	cov_{21} & cov_{22}
+\end{bmatrix}
+= \begin{bmatrix}
+	0.9983 & -0.409 \\
+	-0.409 & 1.0
+\end{bmatrix}\\
+$
+\hfill \break
 Now that we have the Covariance matrix, we plug it into the equation $\Sigma w = \alpha w$ and compute the eigen values and eigen vectors, where the eigen values will be $\alpha$ and the eigen vectors will be the vector $w$.\newline
 
 We'll set the equation $|\Sigma - \alpha I|$ equal to zero, since real eigen values only exist if this is equal to zero.\newline
@@ -98,11 +132,46 @@ $|\Sigma - \alpha I| = 0$\newline
 
 
 TODO: Compute EigenVectors and EigenValues of Covariance Matrix
+\newline
+The Final Principal component is (The eigen vector associated with the highest eigen value $4.21$):\newline
+$\begin{bmatrix} 0.57 \\ -0.82 \end{bmatrix}$
 
-
-\newpage
 	\item Project the data onto the principal component corresponding to the largest eigenvalue found in the previous part (3pts).
 	\end{enumerate}
+
+$
+StandardizedData * ProjectionMatrix = 1DArray \\
+\begin{bmatrix}
+  -0.26 & -0.09 \\
+  -0.97 & -1.26 \\
+  -0.50 & -0.09 \\
+   0.21 &  0.37 \\
+  -1.68 &  2.25 \\
+  -0.26 &  0.84 \\
+   0.45 & -0.33 \\
+   1.39 & -0.56 \\
+  -0.02 & -1.03 \\
+   1.63 & -0.09
+\end{bmatrix}
+\begin{bmatrix}
+	0.57 \\
+   -0.82
+\end{bmatrix}
+=
+\begin{bmatrix}
+	-0.074 \\
+     0.48  \\
+    -0.211 \\
+    -0.184 \\
+    -2.803 \\
+    -0.837 \\
+     0.527 \\
+     1.251 \\
+     0.833 \\
+     1.003
+\end{bmatrix}
+$
+
 
 \newpage
 \item Consider the following data:\\
@@ -131,14 +200,174 @@ $
 \end{center}
 	\begin{enumerate}
 	\item Compute the information gain for each feature.  You could standardize the data overall, although it won't make a difference. (5pts).
+	\hfill \break
+
+	$Feature_1$ = column 1 \\
+	$Feature_2$ = column 2 \\
+	
+	p = number of samples in class 1 = 5 total \\
+	n = number of samples in class 2 = 5 total \\
+	
+	Initial Entropy = $H(\frac{5}{10},\frac{5}{10}) = -\frac{5}{10}log_2(\frac{5}{10}) + -\frac{5}{10}log_2(\frac{5}{10}) = 1$ \\
+	\hfill \break
+$ 	remainder(Feature_1) = \frac{1+1}{5+5}(-\frac{1}{5} log_2(\frac{1}{5}) - \frac{1}{5}log_2(\frac{1}{5}) + 
+ 	 				       \frac{1+0}{5+5}(-\frac{1}{5} log_2(\frac{1}{5}) - \frac{0}{5}log_2(\frac{0}{5}) + 
+  						   \frac{1+0}{5+5}(-\frac{1}{5} log_2(\frac{1}{5}) - \frac{0}{5}log_2(\frac{0}{5}) + 
+  						   \frac{1+0}{5+5}(-\frac{1}{5} log_2(\frac{1}{5}) - \frac{0}{5}log_2(\frac{0}{5}) + 
+  						   \frac{1+0}{5+5}(-\frac{1}{5} log_2(\frac{1}{5}) - \frac{0}{5}log_2(\frac{0}{5}) + 
+  						   \frac{0+1}{5+5}(-\frac{0}{5} log_2(\frac{0}{5}) - \frac{1}{5}log_2(\frac{1}{5}) + 
+  						   \frac{0+1}{5+5}(-\frac{0}{5} log_2(\frac{0}{5}) - \frac{1}{5}log_2(\frac{1}{5}) + 
+  						   \frac{0+1}{5+5}(-\frac{0}{5} log_2(\frac{0}{5}) - \frac{1}{5}log_2(\frac{1}{5}) + 
+  						   \frac{0+1}{5+5}(-\frac{0}{5} log_2(\frac{0}{5}) - \frac{1}{5}log_2(\frac{1}{5}) \\
+$
+\hfill \break
+$  						   
+   	remainder(Feature_1) = \frac{2}{10}(0.322 - 0.322) + \frac{1}{10}(0.322 - 0) + \frac{1}{10}(0.322 - 0) + 
+						  \frac{1}{10}(0.322 - 0) + \frac{1}{10}(0.322 - 0) + \frac{1}{10}(0 - 0.322) + 	
+						  \frac{1}{10}(0 - 0.322) + \frac{1}{10}(0 - 0.322) + \frac{1}{10}(0 - 0.322) \\
+$	
+\hfill \break
+$
+	remainder(Feature_1) = \frac{2}{10}(0) + \frac{4}{10}(0.322) + \frac{4}{10}(-0.322) = 0
+$
+\hfill \break
+\hfill \break
+$
+	IG(Feature_1) = 1.0 - 0 = 1.0 (No information gain)
+$
+\hfill \break
+\hfill \break
+$ 	remainder(Feature_2) = \frac{2+1}{5+5}(-\frac{2}{5} log_2(\frac{2}{5}) - \frac{1}{5}log_2(\frac{1}{5})) + 
+ 	 				       \frac{1+0}{5+5}(-\frac{1}{5} log_2(\frac{1}{5}) - \frac{0}{5}log_2(\frac{0}{5})) + 
+  						   \frac{1+0}{5+5}(-\frac{1}{5} log_2(\frac{1}{5}) - \frac{0}{5}log_2(\frac{0}{5})) + 
+  						   \frac{1+0}{5+5}(-\frac{1}{5} log_2(\frac{1}{5}) - \frac{0}{5}log_2(\frac{0}{5})) + 
+  						   \frac{0+1}{5+5}(-\frac{0}{5} log_2(\frac{0}{5}) - \frac{1}{5}log_2(\frac{1}{5})) + 
+  						   \frac{0+1}{5+5}(-\frac{0}{5} log_2(\frac{0}{5}) - \frac{1}{5}log_2(\frac{1}{5})) + 
+  						   \frac{0+1}{5+5}(-\frac{0}{5} log_2(\frac{0}{5}) - \frac{1}{5}log_2(\frac{1}{5})) + 
+  						   \frac{0+1}{5+5}(-\frac{0}{5} log_2(\frac{0}{5}) - \frac{1}{5}log_2(\frac{1}{5})) \\
+$
+\hfill \break
+$  						   
+   	remainder(Feature_2) = \frac{3}{10}(0.23 - 0.322) + \frac{1}{10}(0.322 - 0) + \frac{1}{10}(0.322 - 0) + 
+						  \frac{1}{10}(0.322 - 0) + \frac{1}{10}(0 - 0.322) + \frac{1}{10}(0 - 0.322) + 	
+						  \frac{1}{10}(0 - 0.322) + \frac{1}{10}(0 - 0.322) \\
+$	
+\hfill \break
+$
+	remainder(Feature_2) = \frac{3}{10}(-0.092) + \frac{7}{10}(0.322) = -0.0276 + 0.2254 = 0.1978
+$
+\hfill \break
+$
+	IG(Feature_2) = 1.0 - 0.1978 = 0.8022
+$
+
+
 \newpage
-	\item Which feature is more discriminating based on results in part a (1pt)?
+	\item Which feature is more discriminating based on results in part a (1pt)?\\
+	\hfill \break
+	We would get a higher information gain with $Feature_2$ (Column 2). Thus $Feature_2$ is more discriminating.
 \newpage
 	\item Using LDA, find the direction of projection (you must show the math).  Normalize this vector to be unit length.\\ \emph{Note: You don't not have to standardize the data since your computations should take into account the mean and standard deviations of the classes separately.}  (5pts).
 \newpage
-	\item Project the data onto the principal component found in the previous part (3pts).
-\newpage
-	\item Does the projection you performed in the previous part seem to provide good class separation?  Why or why not (1pt)?
+	\item Project the data onto the principal component found in the previous part (3pts).\\
+	
+$
+StandardizedClass_1 = (\begin{bmatrix}
+	-2 &  1 \\
+	-5 & -4 \\
+	-3 &  1 \\
+	 0 &  3 \\
+	-8 & 11 
+\end{bmatrix}
+-
+\begin{bmatrix}
+	-0.9 & 1.4
+\end{bmatrix})
+/ \begin{bmatrix}
+	4.23 & 4.27
+\end{bmatrix}
+=
+\begin{bmatrix}
+	-0.26 & -0.09 \\
+	-0.97 & -1.26 \\
+	-0.50 & -0.09 \\
+	 0.21 &  0.37 \\
+	-1.68 &  2.25 
+\end{bmatrix} \\
+$
+\hfill \break
+$StandardizedClass_2 = (\begin{bmatrix}
+	-2 &  5 \\
+	 1 &  0 \\
+	 5 & -1 \\
+	-1 & -3 \\
+	 6 &  1 
+\end{bmatrix}
+-
+\begin{bmatrix}
+	-0.9 & 1.4
+\end{bmatrix})
+/ \begin{bmatrix}
+	4.23 & 4.27
+\end{bmatrix}
+=
+\begin{bmatrix}
+	-0.26 &  0.84 \\
+	 0.45 & -0.33 \\
+	 1.39 & -0.56 \\
+	 0.21 &  0.37 \\
+	-1.68 &  2.25 
+\end{bmatrix}
+\\
+Class_1 = \begin{bmatrix}
+	-0.26 & -0.09 \\
+	-0.97 & -1.26 \\
+	-0.50 & -0.09 \\
+	 0.21 &  0.37 \\
+	-1.68 &  2.25 
+\end{bmatrix}
+\begin{bmatrix}
+	0.57 \\
+   -0.82
+\end{bmatrix}
+=
+\begin{bmatrix}
+	-0.074 \\
+	 0.482 \\
+	-0.211 \\
+	-0.184 \\
+	-2.806
+\end{bmatrix}
+$\\
+\hfill \break
+\hfill \break
+$
+Class_2 = \begin{bmatrix}
+	-0.26 &  0.84 \\
+	 0.45 & -0.33 \\
+	 1.39 & -0.56 \\
+	 0.21 &  0.37 \\
+	-1.68 &  2.25 
+\end{bmatrix}
+\begin{bmatrix}
+	0.57 \\
+   -0.82	
+\end{bmatrix}
+=
+\begin{bmatrix}
+	-0.838 \\
+	 0.528 \\
+	 1.252 \\
+	 0.835 \\
+	 1.003
+\end{bmatrix}
+$
+\\
+\hfill \break
+	\item Does the projection you performed in the previous part seem to provide good class separation?  Why or why not (1pt)?\\
+\hfill \break
+	Yes, this does provide a very good separation. The main reason behind this is that Class 1 ends up being the top half of the projection from the previous question. Then Class 2 is at the bottom of the projection from the earlier question.\\
+	This provides a clean separation of the projection.
 	\end{enumerate}
 \end{enumerate}
 
