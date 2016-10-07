@@ -70,24 +70,68 @@ def kmeans(dataframe, col_1_index, col_2_index, k, output_path, columns, cluster
     cluster_centers = [std_df.iloc[random.randrange(0, len(std_df)-1)] for i in xrange(k)]
 
     # Plot the initial Setup
-    #   DataPoints = Red X
-    #   Cluster Centers = Blue O
+    plot_setup(cluster_centers,col_1_index, col_2_index, output_path, std_df)
+    plt.clf()
 
+    # Do K-Means Algorithm
+    # Keep Count of Iterations
+    membership = {}
+    iteration = 0
+    while True:
+        plt_name = "InitialAssignment"
+        plt_title = "Initial Assignment"
+
+        if iteration > 0:
+            plt_name = "Iteration{0}".format(iteration)
+            plt_title = "Iteration #{0}".format(iteration)
+
+        # Assign Membership
+        membership = assign_membership(std_df, cluster_centers, columns)
+
+        # Plot Cluster Assignments
+        plt.clf()
+        plot_iteration(cluster_centers, cluster_colors, col_1_index, col_2_index, k,
+                       membership, output_path, std_df, plt_name, plt_title)
+
+        # Update Center
+        # For each 'cluster' compute the mean point
+        new_cluster_centers = []
+        for cluster_i in xrange(len(cluster_centers)):
+            indices = membership[cluster_i]
+            new_cluster_centers.append(std_df.iloc[indices].mean())
+
+        # Compute difference between prior center and new center, if < 1eps, exit
+        difference = sys.maxint
+        for cluster_i in xrange(len(cluster_centers)):
+            old_point = cluster_centers[cluster_i]
+            new_point = new_cluster_centers[cluster_i]
+            difference = (old_point - new_point).max()
+
+        print "Iteration #{0}, Difference: {1}".format(iteration, difference)
+        if difference <= np.spacing(1): # Matlab's Eps == np.spacing(1)
+            break
+
+        cluster_centers = new_cluster_centers
+        iteration += 1
+
+    #Plot final cluster assignments
+    plot_iteration(cluster_centers, cluster_colors, col_1_index, col_2_index, k,
+                   membership, output_path, std_df, "FinalAssignment", "Final Cluster Assignments")
+
+
+def plot_setup(cluster_centers, col_1_index, col_2_index, output_path, std_df):
     # Plot the Data Points
     plt.plot(std_df[std_df.columns[col_1_index]], std_df[std_df.columns[col_2_index]], 'rx')
-
     for cluster_center in cluster_centers:
-        plt.plot(cluster_center[cluster_center.index[col_1_index]], cluster_center[cluster_center.index[col_2_index]], 'bo')
-
+        plt.plot(cluster_center[cluster_center.index[col_1_index]],
+                 cluster_center[cluster_center.index[col_2_index]], 'bo')
     plt.title("Initial Configuration")
     plt.xlabel(std_df.columns[col_1_index])
     plt.ylabel(std_df.columns[col_2_index])
     plt.savefig(os.path.join(output_path, "InitialConfiguration.png"))
 
-    # Assign Membership
-    membership = assign_membership(std_df, cluster_centers, columns)
-    plt.clf()
-
+def plot_iteration(cluster_centers, cluster_colors, col_1_index, col_2_index,
+                   k, membership, output_path, std_df, name, title):
     # Plot the clusters
     for cluster in xrange(0, k):
         color = cluster_colors[cluster]
@@ -98,21 +142,9 @@ def kmeans(dataframe, col_1_index, col_2_index, k, output_path, columns, cluster
     for cluster_index in xrange(len(cluster_centers)):
         cluster_center = cluster_centers[cluster_index]
         color = cluster_colors[cluster_index]
-        plt.plot(cluster_center[cluster_center.index[col_1_index]], cluster_center[cluster_center.index[col_2_index]], color + 'o')
-
-    plt.title("Initial Assignment")
+        plt.plot(cluster_center[cluster_center.index[col_1_index]], cluster_center[cluster_center.index[col_2_index]],
+                 color + 'o')
+    plt.title(title)
     plt.xlabel(std_df.columns[col_1_index])
     plt.ylabel(std_df.columns[col_2_index])
-    plt.savefig(os.path.join(output_path, "InitialAssignment.png"))
-
-    # Plot initial Cluster Assignments
-    #   Cluster 1 = Red
-    #   Cluster 2 = Blue
-    #   DataPoints = Xs
-    #   Cluster centers = Os
-
-    #Plot final cluster assignments
-    #   Cluster 1 = Red
-    #   Cluster 2 = Blue
-    #   DataPoints = Xs
-    #   Cluster centers = Os
+    plt.savefig(os.path.join(output_path, "{0}.png".format(name)))
