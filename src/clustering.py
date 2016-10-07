@@ -56,17 +56,15 @@ def kmeans(dataframe, col_1_index, col_2_index, k, output_path, columns, cluster
     :return:
     """
 
-    # TODO: Make sure code works for any number of features, but only plot 2 features & 2 clusters
-
-    # TODO: Expose parameter to control columns used for computing distance / membership
-
     # Standardize Data
+    print "Standardizing Data"
     std_df = data.clean_data(dataframe)
 
     # Seed Random Number Generator with '0'
     random.seed(0)
 
     # Randomly select k data instances and use for initial means
+    print "Selecting Initial Centers"
     cluster_centers = [std_df.iloc[random.randrange(0, len(std_df)-1)] for i in xrange(k)]
 
     # Plot the initial Setup
@@ -86,16 +84,19 @@ def kmeans(dataframe, col_1_index, col_2_index, k, output_path, columns, cluster
             plt_title = "Iteration #{0}".format(iteration)
 
         # Assign Membership
+        print "Assigning Membership"
         membership = assign_membership(std_df, cluster_centers, columns)
 
         # Plot Cluster Assignments
         plt.clf()
+        print "Plotting Assignments"
         plot_iteration(cluster_centers, cluster_colors, col_1_index, col_2_index, k,
                        membership, output_path, std_df, plt_name, plt_title)
 
         # Update Center
         # For each 'cluster' compute the mean point
         new_cluster_centers = []
+        print "Computing new Cluster Centers"
         for cluster_i in xrange(len(cluster_centers)):
             indices = membership[cluster_i]
             new_cluster_centers.append(std_df.iloc[indices].mean())

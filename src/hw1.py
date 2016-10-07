@@ -15,7 +15,7 @@ if __name__ == "__main__":
                         help="Plot and save graphs of the standardized data")
     parser.add_argument("-p", "--pca", action="store_true", dest="perform_pca",
                         help="Perform the PCA analysis and save related graphs")
-    parser.add_argument("-c", "--cluster", action="store_true", dest="perform_clustering",
+    parser.add_argument("-k", "--kmeans", action="store_true", dest="perform_kmeans",
                         help="Perform the Clustering analysis and save related graphs")
     parser.add_argument("-n", "--num-dimensions", action="store", dest="num_dimensions", default=2, type=int,
                         help="Set the number of dimensions in the projected space (default: 2)")
@@ -31,7 +31,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if(not(args.plot_raw_data) and not(args.plot_standardized_data) and
-           not(args.perform_pca) and not(args.perform_clustering)):
+           not(args.perform_pca) and not(args.perform_kmeans)):
         parser.print_help()
 
 
@@ -54,10 +54,11 @@ if __name__ == "__main__":
         if(not(os.path.exists(output_path))):
             os.makedirs(output_path)
 
+        print "Saving Graphs"
         plotting.plot_all_data(projected_df, "PCA {0}-D".format(num_dimensions), "PCA", output_path, projected_df.columns)
 
 
-    if(args.perform_clustering):
+    if(args.perform_kmeans):
         output_path = os.path.join(args.output_folderpath, "KMeans")
         if (not (os.path.exists(output_path))):
             os.makedirs(output_path)

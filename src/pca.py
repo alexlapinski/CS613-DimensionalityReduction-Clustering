@@ -11,12 +11,15 @@ def perform_pca(dataframe, num_dimensions):
     """
 
     # Clean/Standardize the Data
+    print "Standardizing Data"
     std_df = data.clean_data(dataframe)
 
     # Compute the covariance matrix
+    print "Computing Covariance Matrix"
     cov_matrix = std_df.cov()
 
     # Compute Eigenvectors + Eigenvalues of Covariance Matrix
+    print "Finding Eigenvalues and Eigenvectors"
     evalues, evectors = np.linalg.eig(cov_matrix)
 
     # Since evalues are not guarenteed sorted, we need to keep a mapping to the eigenvectors and sort the values
@@ -30,6 +33,7 @@ def perform_pca(dataframe, num_dimensions):
     selected_indicies = [index[val] for val in evalues[:num_dimensions]]
 
     # Build projection matrix
+    print "Projecting Data to {0} Dimensions".format(num_dimensions)
     projection_matrix = evectors[:, selected_indicies]
 
     # Project original dataframe using projection matrix
