@@ -126,22 +126,122 @@ $
 \hfill \break
 Now that we have the Covariance matrix, we plug it into the equation $\Sigma w = \alpha w$ and compute the eigen values and eigen vectors, where the eigen values will be $\alpha$ and the eigen vectors will be the vector $w$.\newline
 
-We'll set the equation $|\Sigma - \alpha I|$ equal to zero, since real eigen values only exist if this is equal to zero.\newline
+We'll set the equation $|\Sigma - \lambda I|$ equal to zero, since real eigen values only exist if this is equal to zero.\newline
 
-$|\Sigma - \alpha I| = 0$\newline
-
-
-TODO: Compute EigenVectors and EigenValues of Covariance Matrix
-\newline
-The Final Principal component is (The eigen vector associated with the highest eigen value $4.21$):\newline
-$\begin{bmatrix} 0.57 \\ -0.82 \end{bmatrix}$
-
+$0 = |\Sigma - \lambda I|$\\
+\hfill \break
+\hfill \break
+$0 = |\begin{bmatrix} 0.9983 & -0.409 \\ -0.409  &  1.0 \end{bmatrix} 
+- 
+\begin{bmatrix} \lambda & 0 \\ 0 & \lambda \end{bmatrix}|$\\
+\hfill \break
+\hfill \break
+$0 = |\begin{bmatrix}  0.9983-\lambda & -0.409-0 \\ -0.409-0  &  1.0-\lambda \end{bmatrix}|$\\
+\hfill \break
+\hfill \break
+$0 = (0.9983 - \lambda)(1.0 - \lambda) - (-0.409)(-0.409)$\\
+\hfill \break
+\hfill \break
+$0 = 0.9983 - 1.9983\lambda + \lambda^2 - 0.167$\\
+$0 = \lambda^2 - 1.9983 \lambda + 0.8313 $\\
+$\lambda = \frac{1.9983 \pm \sqrt{-1.9983^2 - 4*1*0.8313}}{2*1}$\\
+$\lambda = \frac{1.9983 \pm \sqrt{0.82}}{2}$\\
+\hfill \break
+Now we can plug one of the values of lambda into the equation to get our eigen vectors.\\
+$\begin{bmatrix}
+\begin{bmatrix}
+0.9983 & -0.409 \\
+-0.409 & 1
+\end{bmatrix}
+- 
+\begin{bmatrix}
+\frac{1.9983+\sqrt{0.82}}{2} & 0 \\
+0 & \frac{1.9983+\sqrt{0.82}}{2}
+\end{bmatrix}
+\end{bmatrix}
+$
+$
+\cdot
+\begin{bmatrix}
+	x \\
+	y
+\end{bmatrix} 
+=  
+\begin{bmatrix} 
+	0 \\ 
+	0 
+\end{bmatrix}
+$\\
+\hfill \break
+$\begin{bmatrix}
+\begin{bmatrix}
+0.9983 & -0.409 \\
+-0.409 & 1
+\end{bmatrix}
+- 
+\begin{bmatrix}
+1.45 & 0 \\
+0 & 1.45
+\end{bmatrix}
+\end{bmatrix}
+$
+$
+\cdot
+\begin{bmatrix}
+	x \\
+	y
+\end{bmatrix} 
+=  
+\begin{bmatrix} 
+	0 \\ 
+	0 
+\end{bmatrix}
+$\\
+\hfill \break
+$\begin{bmatrix}
+0.9983 - 1.45 & -0.409 - 0 \\
+-0.409 - 0 & 1 - 1.45
+\end{bmatrix}
+$
+$
+\cdot
+\begin{bmatrix}
+	x \\
+	y
+\end{bmatrix} 
+=  
+\begin{bmatrix} 
+	0 \\ 
+	0 
+\end{bmatrix}
+$\\
+We then write out one of the equations to solve for y.
+$-0.4517x + -0.409y = 0$\\
+$y = \frac{0.4517x}{0.409}$\\
+We can then place any value for x, say 1 and get a vector.\\
+$e_1 = \begin{bmatrix}
+	1 \\
+	\frac{0.4517}{0.409}
+\end{bmatrix}$\\
+Then we'll standardize this value.
+$\frac{1}{2.21}\begin{bmatrix}
+	1 \\
+	1.10
+\end{bmatrix} = \begin{bmatrix}
+	0.453 \\
+	0.498
+\end{bmatrix}$\\
+\hfill \break
+The Final Principal component is (The eigen vector associated with the highest eigen value):\newline
+$\begin{bmatrix} 0.453 \\ 0.498 \end{bmatrix}$
+\newpage
 	\item Project the data onto the principal component corresponding to the largest eigenvalue found in the previous part (3pts).
 	\end{enumerate}
 
-$
-StandardizedData * ProjectionMatrix = 1DArray \\
-\begin{bmatrix}
+
+$StandardizedData * ProjectionMatrix = 1DArray$ \\
+\hfill \break
+$\begin{bmatrix}
   -0.26 & -0.09 \\
   -0.97 & -1.26 \\
   -0.50 & -0.09 \\
@@ -154,21 +254,21 @@ StandardizedData * ProjectionMatrix = 1DArray \\
    1.63 & -0.09
 \end{bmatrix}
 \begin{bmatrix}
-	0.57 \\
-   -0.82
+	0.453 \\
+    0.498
 \end{bmatrix}
 =
 \begin{bmatrix}
-	-0.074 \\
-     0.48  \\
-    -0.211 \\
-    -0.184 \\
-    -2.803 \\
-    -0.837 \\
-     0.527 \\
-     1.251 \\
-     0.833 \\
-     1.003
+	-0.16\\
+    -1.07\\
+    -0.27\\
+     0.28\\
+     0.36\\
+     0.30\\
+     0.04\\
+     0.35\\
+    -0.52\\
+     0.69
 \end{bmatrix}
 $
 
@@ -327,16 +427,17 @@ Class_1 = \begin{bmatrix}
 	-1.68 &  2.25 
 \end{bmatrix}
 \begin{bmatrix}
-	0.57 \\
-   -0.82
+	0.453 \\
+    0.498
 \end{bmatrix}
 =
 \begin{bmatrix}
-	-0.074 \\
-	 0.482 \\
-	-0.211 \\
-	-0.184 \\
-	-2.806
+	-0.16\\
+    -1.07\\
+    -0.27\\
+     0.28\\
+     0.36\\
+
 \end{bmatrix}
 $\\
 \hfill \break
@@ -350,16 +451,16 @@ Class_2 = \begin{bmatrix}
 	-1.68 &  2.25 
 \end{bmatrix}
 \begin{bmatrix}
-	0.57 \\
-   -0.82	
+	0.453 \\
+    0.498	
 \end{bmatrix}
 =
 \begin{bmatrix}
-	-0.838 \\
-	 0.528 \\
-	 1.252 \\
-	 0.835 \\
-	 1.003
+	 0.30\\
+     0.04\\
+     0.35\\
+    -0.52\\
+     0.69
 \end{bmatrix}
 $
 \\
